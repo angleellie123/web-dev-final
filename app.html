@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web App | Trip Planner Mini</title>
+  <style>
+    :root{
+      --bg:#0b1224; --panel:#101a33; --text:#e5e7eb; --muted:#9ca3af; --accent:#60a5fa;
+      --ok:#34d399; --warn:#fbbf24;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      background: radial-gradient(1000px 600px at 20% 10%, rgba(96,165,250,.18), transparent 55%),
+                  radial-gradient(900px 500px at 90% 30%, rgba(52,211,153,.12), transparent 60%),
+                  #050814;
+      color:var(--text); line-height:1.55;
+    }
+    a{color:var(--accent)}
+    .wrap{max-width:1100px; margin:0 auto; padding:26px 16px 70px}
+    .top{
+      display:flex; flex-wrap:wrap; align-items:end; justify-content:space-between; gap:10px;
+      padding:18px; border-radius:18px; background:rgba(16,26,51,.75);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    h1{margin:0; font-size:28px}
+    .small{color:var(--muted); font-size:14px}
+    .grid{display:grid; grid-template-columns: 1.15fr .85fr; gap:16px; margin-top:16px}
+    .card{
+      background:rgba(16,26,51,.70); border:1px solid rgba(255,255,255,.10);
+      border-radius:18px; padding:16px;
+    }
+    label{display:block; font-weight:600; margin:10px 0 6px}
+    input, select, textarea{
+      width:100%; padding:10px 12px; border-radius:12px; border:1px solid rgba(255,255,255,.14);
+      background:rgba(5,8,20,.55); color:var(--text);
+      outline:none;
+    }
+    textarea{min-height:92px; resize:vertical}
+    .row{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px}
+    .chip{
+      display:flex; align-items:center; gap:8px; padding:8px 10px;
+      border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(5,8,20,.45);
+      user-select:none;
+    }
+    .chip input{width:auto}
+    .btns{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    button{
+      border:0; border-radius:14px; padding:10px 14px; font-weight:700; cursor:pointer;
+    }
+    .primary{background:var(--accent); color:#041022}
+    .ghost{background:transparent; color:var(--text); border:1px solid rgba(255,255,255,.16)}
+    .out{
+      white-space:pre-wrap; background:rgba(5,8,20,.55); border:1px solid rgba(255,255,255,.10);
+      border-radius:14px; padding:12px; min-height:220px;
+    }
+    .pill{display:inline-block; padding:6px 10px; border-radius:999px; font-size:13px; color:var(--muted);
+      border:1px solid rgba(255,255,255,.14); margin-right:8px; margin-bottom:8px}
+    @media (max-width: 900px){ .grid{grid-template-columns:1fr} .row{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <div>
+        <h1>Trip Planner Mini App</h1>
+        <div class="small">Single-file HTML + CSS + JS. Generate a simple itinerary + packing list based on your inputs.</div>
+      </div>
+      <div class="small">
+        <a href="index.html">Home</a> · <a href="resume.html">Résumé</a> · <a href="scratch.html">Scratch</a>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2 style="margin:0 0 6px">Plan your trip</h2>
+        <div class="small">Fill this out and click “Generate plan.”</div>
+
+        <div class="row">
+          <div>
+            <label for="dest">Destination</label>
+            <input id="dest" placeholder="e.g., Seattle, WA">
+          </div>
+          <div>
+            <label for="days">Days</label>
+            <input id="days" type="number" min="1" max="30" value="3">
+          </div>
+        </div>
+
+        <div class="row">
+          <div>
+            <label for="budget">Total budget ($)</label>
+            <input id="budget" type="number" min="0" step="10" value="600">
+          </div>
+          <div>
+            <label for="pace">Trip pace</label>
+            <select id="pace">
+              <option value="relaxed">Relaxed</option>
+              <option value="balanced" selected>Balanced</option>
+              <option value="packed">Packed</option>
+            </select>
+          </div>
+        </div>
+
+        <label>Interests</label>
+        <div class="chips" id="chips">
+          <label class="chip"><input type="checkbox" value="coffee" checked> Coffee</label>
+          <label class="chip"><input type="checkbox" value="photo" checked> Photography</label>
+          <label class="chip"><input type="checkbox" value="nature" checked> Nature</label>
+          <label class="chip"><input type="checkbox" value="food" checked> Affordable food</label>
+          <label class="chip"><input type="checkbox" value="museums"> Museums</label>
+          <label class="chip"><input type="checkbox" value="markets"> Markets</label>
+        </div>
+
+        <label for="notes">Any constraints?</label>
+        <textarea id="notes" placeholder="e.g., no rental car, vegetarian, sunrise photo shoot, etc."></textarea>
+
+        <div class="btns">
+          <button class="primary" id="gen">Generate plan</button>
+          <button class="ghost" id="clear">Clear</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 style="margin:0 0 6px">Your output</h2>
+        <div class="small">Edit this output and copy/paste it wherever you want.</div>
+        <div style="margin-top:10px">
+          <span class="pill">Itinerary</span>
+          <span class="pill">Budget split</span>
+          <span class="pill">Packing list</span>
+        </div>
+        <div class="out" id="out"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function getInterests(){
+      return Array.from(document.querySelectorAll('#chips input[type="checkbox"]:checked'))
+        .map(x => x.value);
+    }
+
+    function money(n){
+      return new Intl.NumberFormat('en-US', {style:'currency', currency:'USD'}).format(n);
+    }
+
+    function genPlan(){
+      const dest = $('dest').value.trim() || 'your destination';
+      const days = Math.max(1, parseInt($('days').value || '3', 10));
+      const budget = Math.max(0, parseFloat($('budget').value || '0'));
+      const pace = $('pace').value;
+      const notes = $('notes').value.trim();
+      const interests = getInterests();
+
+      const paceFactor = pace === 'relaxed' ? 2 : (pace === 'packed' ? 4 : 3); // activities/day
+      const activitiesPerDay = paceFactor;
+
+      const budgetFood = budget * 0.35;
+      const budgetTransit = budget * 0.20;
+      const budgetLodging = budget * 0.40;
+      const budgetMisc = Math.max(0, budget - (budgetFood + budgetTransit + budgetLodging));
+
+      const interestMap = {
+        coffee: ['local coffee crawl', 'try a signature drink', 'work from a cozy cafe'],
+        photo: ['golden-hour photo walk', 'find an iconic viewpoint', 'shoot details + textures'],
+        nature: ['easy scenic hike', 'sunset at a park', 'waterfront walk'],
+        food: ['hole-in-the-wall spot', 'food truck lunch', 'cheap eats list'],
+        museums: ['one museum block', 'free/discount day check', 'guided highlights'],
+        markets: ['farmers market', 'vintage/flea market', 'local artisan shops'],
+      };
+
+      const picks = interests.flatMap(i => interestMap[i] || []);
+      const pick = (i) => picks[i % Math.max(1, picks.length)] || 'explore a neighborhood';
+
+      let out = '';
+      out += `TRIP PLAN — ${dest}\n`;
+      out += `Days: ${days} | Pace: ${pace}\n\n`;
+
+      out += `BUDGET SPLIT (estimate)\n`;
+      out += `• Lodging: ${money(budgetLodging)}\n`;
+      out += `• Food: ${money(budgetFood)}\n`;
+      out += `• Transit: ${money(budgetTransit)}\n`;
+      out += `• Misc: ${money(budgetMisc)}\n\n`;
+
+      out += `ITINERARY (simple + realistic)\n`;
+      for(let d=1; d<=days; d++){
+        out += `Day ${d}:\n`;
+        for(let a=1; a<=activitiesPerDay; a++){
+          out += `  - ${pick((d-1)*activitiesPerDay + (a-1))}\n`;
+        }
+        out += `  - dinner + unwind\n\n`;
+      }
+
+      out += `PACKING LIST (starter)\n`;
+      out += `• ID + wallet + charger\n`;
+      out += `• Comfortable shoes + light jacket\n`;
+      out += `• Camera kit: camera, battery, SD card(s)\n`;
+      out += `• Backup: extra storage / cloud upload plan\n`;
+      out += `• Small tripod (optional)\n\n`;
+
+      if(notes){
+        out += `CONSTRAINTS / NOTES\n• ${notes}\n`;
+      }
+
+      $('out').textContent = out;
+    }
+
+    $('gen').addEventListener('click', genPlan);
+    $('clear').addEventListener('click', () => {
+      $('dest').value = '';
+      $('days').value = 3;
+      $('budget').value = 600;
+      $('pace').value = 'balanced';
+      $('notes').value = '';
+      document.querySelectorAll('#chips input[type="checkbox"]').forEach(x => x.checked = false);
+      // default some on
+      ['coffee','photo','nature','food'].forEach(v => {
+        const el = Array.from(document.querySelectorAll('#chips input')).find(x => x.value===v);
+        if(el) el.checked = true;
+      });
+      $('out').textContent = '';
+    });
+
+    // generate once on load
+    genPlan();
+  </script>
+</body>
+</html>

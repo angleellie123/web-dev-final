@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scratch Page | Travel + Photography</title>
+  <link rel="stylesheet" href="css/scratch.css">
+</head>
+<body>
+  <!-- DIV #1 -->
+  <div class="container">
+    <div class="header">
+      <h1>Scratch Page: Travel + Photography</h1>
+      <p class="small">
+        Built from a blank HTML file (no Bootstrap). This page demonstrates core HTML/CSS requirements:
+        nested lists, image, YouTube embed, on-page anchor, custom background, custom stylesheet, div layout,
+        and a live interactive Tableau embed.
+      </p>
+
+      <div class="small">
+        Navigation:
+        <a href="index.html">Home</a> ·
+        <a href="resume.html">Résumé</a> ·
+        <a href="app.html">Web App</a> ·
+        <a href="#tableau">Jump to Tableau ↓</a>
+      </div>
+    </div>
+
+    <!-- layout grid: DIV #2 and DIV #3 happen inside -->
+    <div class="grid">
+      <!-- DIV #2 -->
+      <div class="card">
+        <h2>1) Trip Planning Checklist (Nested List)</h2>
+        <p class="small">Requirement: an unordered list embedded in an ordered list (or vice versa).</p>
+
+        <ol>
+          <li>
+            Before the trip
+            <ul>
+              <li>Pick dates and book flights/lodging</li>
+              <li>Plan 2–3 “must-do” spots (leave space for spontaneity)</li>
+              <li>Build a simple budget (food + transit + activities)</li>
+            </ul>
+          </li>
+          <li>
+            Pack camera + essentials
+            <ul>
+              <li>Camera + extra battery</li>
+              <li>Small tripod</li>
+              <li>SD cards + a backup plan</li>
+            </ul>
+          </li>
+          <li>
+            Capture the story
+            <ul>
+              <li>Wide shots to set the scene</li>
+              <li>Medium shots for context</li>
+              <li>Close-ups for detail</li>
+            </ul>
+          </li>
+        </ol>
+
+        <hr>
+
+        <h2>2) Original Image</h2>
+        <p class="small">
+          Requirement: at least one image NOT from a Bootstrap theme.
+          Replace the placeholder below with one of your own photos.
+        </p>
+        <img class="responsive" src="img/travel_photo_placeholder.png" alt="Travel photo placeholder">
+
+        <hr>
+
+        <h2>3) YouTube Embed</h2>
+        <p class="small">Requirement: an embedded YouTube video (iframe).</p>
+        <iframe width="100%" height="360"
+          src="https://www.youtube.com/embed/aqz-KE-bpKQ"
+          title="YouTube video player"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen></iframe>
+
+        <p class="small">
+          Want a different video? Replace the VIDEO_ID in the src URL:
+          <code>https://www.youtube.com/embed/VIDEO_ID</code>
+        </p>
+      </div>
+
+      <!-- DIV #3 -->
+      <div class="card">
+        <h2>Quick Links</h2>
+        <div class="pill">From-scratch HTML</div>
+        <div class="pill">From-scratch CSS</div>
+        <div class="pill">Anchor link</div>
+        <div class="pill">Tableau embed</div>
+
+        <hr>
+
+        <h2>On-page Anchor</h2>
+        <p class="small">
+          The “Jump to Tableau” link at the top is an on-page anchor that scrolls to the Tableau section.
+        </p>
+
+        <hr>
+
+        <h2>Web App</h2>
+        <p class="small">
+          Requirement: a small web app created with AI help, kept in one page.
+        </p>
+        <a href="app.html">Open the Web App →</a>
+
+        <hr>
+
+        <h2>Back to Professional Pages</h2>
+        <p class="small">
+          Requirement: navigation back to professional pages.
+        </p>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="resume.html">Résumé</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Tableau section -->
+    <div class="card" id="tableau">
+      <h2>4) Live Interactive Tableau Visualization</h2>
+      <p class="small">
+        Requirement: a live and interactive embedded Tableau graph (not a screenshot).
+        This embed uses a public Tableau dashboard.
+      </p>
+
+      <!-- Tableau Public interactive embed via iframe -->
+      <iframe
+        title="Tableau Dashboard"
+        src="https://public.tableau.com/views/NetflixMoviesandTVShowsDashboard_17065467710800/Netflix?:showVizHome=no"
+        width="100%"
+        height="760"
+        frameborder="0"
+        allowfullscreen>
+      </iframe>
+
+      <p class="small">
+        If you want a different viz: go to Tableau Public → open a viz → Share → copy the embed link,
+        then replace the iframe src.
+      </p>
+    </div>
+
+    <div class="footer">
+      Built for the Web Dev Final Project scratch-page requirements.
+    </div>
+  </div>
+</body>
+</html>
